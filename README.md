@@ -30,15 +30,14 @@ We will use readnpy method to read npy file
 
 ```
 def readnpy(path):
-    # npy file: [(imgs, label), (imgs, label)...., (imgs, label)]
-    # array [((3, 32, 32), x), ((3, 32, 32), x)]
+    # npy file: [[imgs, label], [imgs, label]...., [imgs, label]]
     np_array = np.load(path)
     imgs = []
     label = []
     for index in range(len(np_array)):
         imgs.append(np_array[index][0])
         label.append(np_array[index][1])
-    torch_dataset = Data.TensorDataset(torch.from_numpy(imgs), torch.from_numpy(label))
+    torch_dataset = Data.TensorDataset(torch.from_numpy(np.array(imgs)), torch.from_numpy(np.array(label)))
 
     dataloader = Data.DataLoader(
         torch_dataset,
@@ -46,4 +45,5 @@ def readnpy(path):
         shuffle=True
     )
     print(dataloader)
+readnpy("./cifar10/splitByLabels/splitByLabels_0.npy")
 ```

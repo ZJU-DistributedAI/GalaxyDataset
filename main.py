@@ -65,8 +65,9 @@ def splitByLabels(train_loader):
     sub_datasets = [[] for i in range(10)]
     for step, (imgs, label) in enumerate(train_loader):
         num_label = label.data.item()
-        # imgs[0].numpy()： <class 'tuple'>: (3, 32, 32)  label[0].numpy() 1 =>
-        sub_datasets[num_label].append([imgs[0].numpy(),label[0].numpy()]) # [[(3, 32, 32) , x], [(3, 32, 32) , x], ..]
+        # imgs[0].numpy()： <class 'tuple'>: (3, 32, 32)  label[0].numpy() [x] =>
+        sub_datasets[num_label].append(
+            [imgs[0].numpy(),np.array(label[0].numpy())]) # [[(3, 32, 32) , [x]], [(3, 32, 32) , x], ..]
         if step % 10000 == 0:
             print("loop train step: ", step)
     return sub_datasets
@@ -77,7 +78,9 @@ def splitByLabelsAnddDataset(train_loader, percent=0.1):
     sub_datasets = [[] for i in range(10)]
     for step, (imgs, label) in enumerate(train_loader):
         num_label = label.data.item()
-        sub_datasets[num_label].append((imgs[0].numpy(), label[0].numpy()))
+        # imgs[0].numpy()： <class 'tuple'>: (3, 32, 32)  label[0].numpy() [x] =>
+        sub_datasets[num_label].append(
+            [imgs[0].numpy(), np.array(label[0].numpy())])  # [[(3, 32, 32) , [x]], [(3, 32, 32) , x], ..]
         if step % 5000 == 0:
             print("loop train step: ", step)
 
@@ -87,7 +90,7 @@ def splitByLabelsAnddDataset(train_loader, percent=0.1):
             if step < int(percent*len(sub_datasets[i])):
                 if step % 100 == 0:
                     print("step：%d, adding other data" % step)
-                sub_datasets[i].append((imgs[0].numpy(), label[0].numpy()))
+                sub_datasets[i].append([imgs[0].numpy(), np.array(label[0].numpy())])
             else:
                 break
 
@@ -98,7 +101,9 @@ def addErrorDataset(train_loader, percent=0.1, error=False, error_ratio=0.01):
     sub_datasets = [[] for i in range(10)]
     for step, (imgs, label) in enumerate(train_loader):
         num_label = label.data.item()
-        sub_datasets[num_label].append((imgs[0].numpy(), label[0].numpy()))
+        # imgs[0].numpy()： <class 'tuple'>: (3, 32, 32)  label[0].numpy() [x] =>
+        sub_datasets[num_label].append(
+            [imgs[0].numpy(), np.array(label[0].numpy())])  # [[(3, 32, 32) , [x]], [(3, 32, 32) , x], ..]
         if step % 5000 == 0:
             print("loop train step: ", step)
 
@@ -108,7 +113,7 @@ def addErrorDataset(train_loader, percent=0.1, error=False, error_ratio=0.01):
                 if step < int(percent * len(sub_datasets[i])):
                     if step % 100 == 0:
                         print("step：%d, adding other dataset" % step)
-                    sub_datasets[i].append((imgs[0].numpy(), label[0].numpy()))
+                    sub_datasets[i].append([imgs[0].numpy(), np.array(label[0].numpy())])
                 else:
                     break
 
@@ -118,7 +123,8 @@ def addErrorDataset(train_loader, percent=0.1, error=False, error_ratio=0.01):
             for index in range(int(error_ratio*percent * len(sub_datasets[i]))):
                 if index % 100 == 0:
                     print("step：%d, adding other error dataset" % index)
-                sub_datasets[i].append((sub_datasets[i][index][0], np.array((sub_datasets[i][index][1].data.item() + random.randint(0, 9)) % 10)))
+                sub_datasets[i].append([sub_datasets[i][index][0],
+                                        np.array((sub_datasets[i][index][1].data.item() + random.randint(0, 9)) % 10)])
 
     return sub_datasets
 
@@ -137,20 +143,19 @@ def savenpy(path, filename, array):
     for i in range(len(array)):
         strings = path + filename + '_' + str(i) + '.npy'
         print("index %d saving %s" % (i, strings))
-        np.save(file=strings, arr=array)
+        np.save(file=strings, arr=array[i])
 
     print("save %s successfully" % filename)
 
 def readnpy(path):
-    # npy file: [(imgs, label), (imgs, label)...., (imgs, label)]
-    # array [((3, 32, 32), x), ((3, 32, 32), x)]
+    # npy file: [[imgs, label], [imgs, label]...., [imgs, label]]
     np_array = np.load(path)
     imgs = []
     label = []
     for index in range(len(np_array)):
         imgs.append(np_array[index][0])
         label.append(np_array[index][1])
-    torch_dataset = Data.TensorDataset(torch.from_numpy(imgs), torch.from_numpy(label))
+    torch_dataset = Data.TensorDataset(torch.from_numpy(np.array(imgs)), torch.from_numpy(np.array(label)))
 
     dataloader = Data.DataLoader(
         torch_dataset,
@@ -161,4 +166,4 @@ def readnpy(path):
 
 if __name__ == "__main__":
     # main()
-    readnpy("./cifar10/splitByLabels_0.npy")
+    readnpy("./cifar10/splitByLabels/splitByLabels_0.npy")
