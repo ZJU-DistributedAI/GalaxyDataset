@@ -28,14 +28,14 @@ def load_data(args):
         train_loader = torch.utils.data.DataLoader(
             datasets.CIFAR10('data', train=True, download=True, transform=transform_train),
             batch_size=args.batch_size,
-            shuffle=False,
+            shuffle=True,
             num_workers=0
         )
 
         test_loader = torch.utils.data.DataLoader(
             datasets.CIFAR10('data', train=False, transform=transform_test),
             batch_size=args.batch_size,
-            shuffle=False,
+            shuffle=True,
             num_workers=1
         )
     elif args.dataset_mode == "CIFAR100":
