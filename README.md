@@ -28,7 +28,7 @@ npy file: [[imgs, label], [imgs, label]...., [imgs, label]]
 ```
 We will use readnpy method to read npy file
 
-```
+```python
 def readnpy(path):
     # npy file: [[imgs, label], [imgs, label]...., [imgs, label]]
     np_array = np.load(path)
@@ -44,6 +44,6 @@ def readnpy(path):
         batch_size=64,
         shuffle=True
     )
-    print(dataloader)
-readnpy("./cifar10/splitByLabels/splitByLabels_0.npy")
+    return dataloader
+dataloader = readnpy("./cifar10/splitByLabels/splitByLabels_0.npy")
 ```

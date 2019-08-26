@@ -1,16 +1,18 @@
+# -*- coding: utf-8 -*-
 import torch
 
 from torchvision import datasets, transforms
 
 
 # CIFAR-10,
-# mean, [0.4914, 0.4822, 0.4465]
-# std, [0.2470, 0.2435, 0.2616]
+# mean, [0.5, 0.5, 0.5]
+# std, [0.5, 0.5, 0.5]
 # CIFAR-100,
 # mean, [0.5071, 0.4865, 0.4409]
 # std, [0.2673, 0.2564, 0.2762]
 
 def load_data(args):
+    args.batch_size = 1
     train_loader = []
     test_loader = []
     if args.dataset_mode == "CIFAR10":
