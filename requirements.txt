@@ -5,4 +5,5 @@ pyrsistent==0.15.3
 python-dateutil==2.8.0
 torch==1.2.0
 torchvision==0.4.0
+yaml
 

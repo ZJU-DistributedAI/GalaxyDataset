@@ -1,37 +1,56 @@
 # Produce DAI dataset on CIFAR10
-> requirements for daidataset
-1. Randomly split CIFAR10 into 10 small datasets
-2. Divide CIFAR10 into 10 small datasets according to dataset labels
-3. Based on the 2nd method, each dataset adds 10% of the data taken from the other 9 datasets to form a new dataset
-4. Based on the 2nd method, each dataset adds 50% of the data taken from the other 9 datasets to form a new dataset 
-5. Based on the 3rd method, each dataset adds some error label data to form a new dataset
+## requirements for daidataset
 
-> Usage
+version 2: 
+
+According to number of nodes, we split CIFAR10 dataset. We can customize the config.yaml configuration file. Set the split mode, randomly or by category. Set the number of nodes, the size of the data set for each node, and the number of each node category. 
+In addition, we can also set the same distribution of data sets to increase the error dataset.
+
+1. randomSplit: 
+    1) no error dataset 
+    2) add error dataset
+2. splitByLabel: 
+    1. just split dataset
+    2. add other dataset, no error dataset
+    3. add error dataset, no other dataset 
+    4. add both dataset
+
+## Usage
 Environment: python3.6
 ```
 pip3 install -r requirements.txt
 ```
 step1:  `source ~/venv/bin/activate`
 
-step2: `./splitDataset.sh`
+step2: set config.yaml
 
-> Parameters
+step3: `./splitDataset.sh`
+
+## Parameters
 
 ```
-split-mode: requirements for daidataset;
+dataset_mode: randomly or by category;
+node_num: the number of nodes
+dataset_size_list: the size of the data set for each node
+node_label_num: the number of each node category
 ```
-We will generate 10 custom datasets.
+We will generate n custom datasets.
 On cifar10 files, every npy file consists of python's List.
 
 ```
 npy file: [[imgs, label], [imgs, label]...., [imgs, label]]
+```
+We can see the name of each npy file:
+```
+npy file name: split mode_dataset size_target label_the ratio of other label_the ratio of error dataset
 ```
 We will use readnpy method to read npy file
 
 ```python
 def readnpy(path):
     # npy file: [[imgs, label], [imgs, label]...., [imgs, label]]
-    np_array = np.load(path)
+    # when allow_pickle=True, matrix needs same size
+    np_array = np.load(path, allow_pickle=True)
     imgs = []
     label = []
     for index in range(len(np_array)):
@@ -44,6 +63,7 @@ def readnpy(path):
         batch_size=64,
         shuffle=True
     )
+    print(dataloader)
     return dataloader
 dataloader = readnpy("./cifar10/splitByLabels/splitByLabels_0.npy")
 ```

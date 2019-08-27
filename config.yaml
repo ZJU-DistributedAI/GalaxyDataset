@@ -1,7 +1,27 @@
 # THis is config for data generate file
 
-# node num 配置
-nodes
-  nums: 10
-  average: true
-  distribute: [1, 1, 1, 1, 1,1, 1, 1, 1, 1] # if average faules every node owns label content
+# node num config
+#  randomSplit: 1. no error 2. add error
+#  splitByLabel: 1. just 2. add other dataset, no error 3. add error, no other dataset 4. add both
+
+# dataset
+dataset_mode: CIFAR10
+
+# node num  Number of node (default n=10) one node corresponding to one dataset,
+node_num: 4
+
+# small dataset config
+isaverage_dataset_size: true # if average splits dataset
+dataset_size_list: [5000, 3000, 2000, 3300]
+
+# split mode
+split_mode: 1 # dataset split: randomSplit(0), splitByLabels(1)
+
+# each node - label kind
+node_label_num: [4, 3, 2, 1]
+
+isadd_label: true
+add_label_rate: 0.1
+
+isadd_error: true
+add_error_rate: 0.01
