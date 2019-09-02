@@ -33,6 +33,7 @@ dataset_mode: randomly or by category;
 node_num: the number of nodes
 dataset_size_list: the size of the data set for each node
 node_label_num: the number of each node category
+isuse_yaml: True=> run main.py by yaml.file, Flase=> run main.py by command line.
 ```
 We will generate n custom datasets.
 On cifar10 files, every npy file consists of python's List.

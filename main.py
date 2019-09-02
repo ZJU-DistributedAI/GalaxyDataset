@@ -35,6 +35,9 @@ def main():
     parser.add_argument('--add-error-rate', type=float, default=0.01,
                         help="if split-mode == 3, add same error dataset")
 
+    parser.add_argument('--isuse-yaml', type= bool, default= True,
+                        help='isuse-yaml = True means using yaml file, false means using command line')
+
     args = parser.parse_args()
 
     args = readYaml("./config.yaml", args)
@@ -55,10 +58,13 @@ def main():
 
 
 def readYaml(path, args):
+    if args.isuse_yaml == False:
+        return args
     if not os.path.exists(path):
         return args
     f = open(path)
     config = yaml.load(f)
+
     args.node_num = int(config["node_num"])
     args.isaverage_dataset_size = config["isaverage_dataset_size"]
     args.dataset_size_list = config["dataset_size_list"]
@@ -163,7 +169,7 @@ def randomSplit(args, loader):
 def splitByLabels(args, train_loader):
     sub_datasets = [[] for i in range(args.node_num)]
     temp_datasets = [[] for i in range(10)]
-    # 按照 节点数 分类，每个节点的类别个数,对应数据量
+    # category according to nodes nums, each node 按照 节点数 分类，每个节点的类别个数,对应数据量
     node_index = 0
     for step, (imgs, label) in enumerate(train_loader):
         num_label = label.data.item()
@@ -189,7 +195,7 @@ def splitByLabels(args, train_loader):
         for y in range(x):
             temp_list.extend(temp_datasets[y+sum_x])
             print("node %d" % index, "| add label-%d dataset" % (y+sum_x))
-        # 如果 只需要部分数据， 打乱 切分
+        # if we need the part of data, shuffle, split
         if args.isaverage_dataset_size == True:
             random.shuffle(temp_list)
             temp_list = temp_list[:args.dataset_size_list[index]]
