@@ -66,5 +66,5 @@ def readnpy(path):
     )
     print(dataloader)
     return dataloader
-dataloader = readnpy("./cifar10/splitByLabels/splitByLabels_0.npy")
+dataloader = readnpy("./cifar10/splitByLabelsWithNormalAndErrorDataset/SplitByLabels_2222_horseandMore_0.1_0.01.npy")
 ```
