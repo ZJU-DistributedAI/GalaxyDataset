@@ -43,7 +43,7 @@ npy file: [[imgs, label], [imgs, label]...., [imgs, label]]
 ```
 We can see the name of each npy file:
 ```
-npy file name: split mode_dataset size_target label_the ratio of other label_the ratio of error dataset
+npy file name: split node index mode_dataset size_target label_the ratio of other label_the ratio of error dataset
 ```
 We will use readnpy method to read npy file
 

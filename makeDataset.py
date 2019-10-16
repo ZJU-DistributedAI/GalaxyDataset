@@ -6,10 +6,11 @@ import argparse
 import os
 import random
 import yaml
+import downloadData
 import preprocess
 
 # 1. download dataset  2. split dataset
-def main():
+def make_dataset():
     parser = argparse.ArgumentParser('parameters')
     # dataset
     parser.add_argument('--dataset-mode', type=str, default="CIFAR10", help="dataset")
@@ -52,7 +53,7 @@ def main():
         print("Error: nodes num is not equal to the length of dataset_size_list or node_label_num ")
         return
 
-    train_loader, test_loader = preprocess.load_data(args)
+    train_loader, test_loader = downloadData.load_data(args)
 
     splitDataset(args, train_loader)
 
@@ -189,16 +190,22 @@ def splitByLabels(args, train_loader):
     # node_label_num [1, 2, 2, 5, 7]
     rs = random.sample(range(0, 10), 10) # 0 - 9 random nums
     # according to nodes list, distribute label dataset
+    all_label_kinds = len(temp_datasets)
     sum_x = 0
     for index, x in enumerate(args.node_label_num):
         temp_list = []
+        if x > all_label_kinds:
+            x = all_label_kinds
         for y in range(x):
-            temp_list.extend(temp_datasets[y+sum_x])
-            print("node %d" % index, "| add label-%d dataset" % (y+sum_x))
+            # temp_list only contain 10 kinds labels
+            labels_index = (y + sum_x) % all_label_kinds
+            temp_list.extend(temp_datasets[labels_index])
+            print("node %d" % index, "| add label-%d dataset" % (labels_index))
         # if we need the part of data, shuffle, split
         if args.isaverage_dataset_size == True:
             random.shuffle(temp_list)
             temp_list = temp_list[:args.dataset_size_list[index]]
+        
         sub_datasets[index] = temp_list
         sum_x += x
 
@@ -261,12 +268,12 @@ def savenpy(path, array, args):
         if len(array[i]) != 0:
             filename = ''
             if args.split_mode == 0:
-                filename = 'randomSplit' + '_'+str(len(array[i]))+ '_' + "normal"
+                filename = 'randomSplit'+'_node_'+str(i) + '_'+str(len(array[i]))+ '_' + "normal"
             elif args.split_mode == 1:
                 if int(args.node_label_num[i]) != 1:
-                    filename = 'SplitByLabels' + '_' + str(len(array[i])) + '_' + classes[array[i][0][1]]+ "andMore"
+                    filename = 'SplitByLabels'+'_node_'+str(i) + '_' + str(len(array[i])) + '_' + classes[array[i][0][1]]+ "andMore"
                 else:
-                    filename = 'SplitByLabels' + '_' + str(len(array[i])) + '_' + classes[array[i][0][1]]
+                    filename = 'SplitByLabels'+'_node_'+str(i) + '_' + str(len(array[i])) + '_' + classes[array[i][0][1]]
 
             strings = path + filename +'_' + str(args.add_label_rate) + '_' + str(args.add_error_rate)+'.npy'
             np.save(file=strings, arr=array[i])
@@ -293,5 +300,6 @@ def readnpy(path):
     return dataloader
 
 if __name__ == "__main__":
-    main()
+    make_dataset()
+    # preprocess.load_npy("./cifar10/splitByLabelsWithNormalAndErrorDataset/SplitByLabels_5555_dog_0.1_0.01.npy")
     # readnpy("./cifar10/splitByLabelsWithNormalAndErrorDataset/SplitByLabels_3666_truck.npy")

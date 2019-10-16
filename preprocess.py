@@ -1,93 +1,47 @@
 # -*- coding: utf-8 -*-
 import torch
-
+import torch.utils.data as Data
+import numpy as np
 from torchvision import datasets, transforms
+import argparse
+import os
+import random
+import yaml
+import downloadData
 
+def load_npy(path):
+    # npy file: [[imgs, label], [imgs, label]...., [imgs, label]]
+    # when allow_pickle=True, matrix needs same size
+    if not os.path.isfile(path):
+        print("files do not exists!!")
+        return
+    np_array = np.load(path, allow_pickle=True)
+    imgs = []
+    label = []
+    for index in range(len(np_array)):
+        imgs.append(np_array[index][0])
+        label.append(np_array[index][1])
+    torch_dataset = Data.TensorDataset(torch.from_numpy(np.array(imgs)), torch.from_numpy(np.array(label)))
 
-# CIFAR-10,
-# mean, [0.5, 0.5, 0.5]
-# std, [0.5, 0.5, 0.5]
-# CIFAR-100,
-# mean, [0.5071, 0.4865, 0.4409]
-# std, [0.2673, 0.2564, 0.2762]
+    train_loader = Data.DataLoader(
+        torch_dataset,
+        batch_size=64,
+        shuffle=True,
+        num_workers=1
+    )
 
-def load_data(args):
-    args.batch_size = 1
-    train_loader = []
-    test_loader = []
-    if args.dataset_mode == "CIFAR10":
-        transform_train = transforms.Compose([
-            transforms.RandomCrop(32, padding=4),
-            transforms.RandomHorizontalFlip(),
-            transforms.ToTensor(),
-            transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)),
-        ])
-
-        transform_test = transforms.Compose([
-            transforms.ToTensor(),
-            transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)),
-        ])
-        train_loader = torch.utils.data.DataLoader(
-            datasets.CIFAR10('data', train=True, download=True, transform=transform_train),
-            batch_size=args.batch_size,
-            shuffle=True,
-            num_workers=0
-        )
-
-        test_loader = torch.utils.data.DataLoader(
-            datasets.CIFAR10('data', train=False, transform=transform_test),
-            batch_size=args.batch_size,
-            shuffle=True,
-            num_workers=1
-        )
-    elif args.dataset_mode == "CIFAR100":
-        transform_train = transforms.Compose([
-            transforms.RandomCrop(32, padding=4),
-            transforms.RandomHorizontalFlip(),
-            transforms.ToTensor(),
-            transforms.Normalize((0.5071, 0.4865, 0.4409), (0.2673, 0.2564, 0.2762)),
-        ])
-
-        transform_test = transforms.Compose([
-            transforms.ToTensor(),
-            transforms.Normalize((0.5071, 0.4865, 0.4409), (0.2673, 0.2564, 0.2762)),
-        ])
-        train_loader = torch.utils.data.DataLoader(
-            datasets.CIFAR100('data', train=True, download=True, transform=transform_train),
-            batch_size=args.batch_size,
-            shuffle=True,
-            num_workers=2
-        )
-
-        test_loader = torch.utils.data.DataLoader(
-            datasets.CIFAR100('data', train=False, transform=transform_test),
-            batch_size=args.batch_size,
-            shuffle=False,
-            num_workers=2
-        )
-    elif args.dataset_mode == "MNIST":
-        
-        transform_train = transforms.Compose([
-            transforms.ToTensor(),
-            transforms.Normalize((0.1307,), (0.3081,)),
-        ])
-
-        transform_test = transforms.Compose([
-            transforms.ToTensor(),
-            transforms.Normalize((0.1307,), (0.3081,)),
-        ])
-        train_loader = torch.utils.data.DataLoader(
-            datasets.MNIST('data', train=True, download=True, transform=transform_train),
-            batch_size=args.batch_size,
-            shuffle=True,
-            num_workers=2
-        )
-
-        test_loader = torch.utils.data.DataLoader(
-            datasets.MNIST('data', train=False, transform=transform_test),
-            batch_size=args.batch_size,
-            shuffle=True,
-            num_workers=2
-        )
-        
+    transform_test = transforms.Compose([
+        transforms.ToTensor(),
+        transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)),
+    ])
+    test_loader = torch.utils.data.DataLoader(
+        datasets.CIFAR10('data', train=False, transform=transform_test),
+        batch_size=32,
+        shuffle=True,
+        num_workers=1
+    )
+    print("train_loader, test_loader generated succeed!")
     return train_loader, test_loader
+
+if __name__ == "__main__":
+    dataloder = load_npy("./cifar10/splitByLabelsWithNormalAndErrorDataset/SplitByLabels_3666_truck.npy")
