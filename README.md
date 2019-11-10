@@ -15,6 +15,16 @@ In addition, we can also set the same distribution of data sets to increase the 
     3. add error dataset, no other dataset 
     4. add both dataset
 
+Adding Standing: This version adds a standard to measure the degree of non independence and distribution of data. Using NI,
+
+Given a feature extractor $g_{\varphi}(\cdot)$ and a class $C$, the degree of distribution shift is $D_{test}^{C}$   deﬁned as:
+
+$N I(C)=\left\|\frac{\overline{g_{\varphi}\left(X_{\text {train}}^{C}\right)}-\overline{g_{\varphi}\left(X_{\text {test}}^{C}\right)}}{\sigma\left(g_{\varphi}\left(X^{C}\right)\right)}\right\|_{2}$
+
+where$X^{C}=X_{\text {train}}^{C} \cup X_{\text {test}}^{C}, \overline{(\cdot)}$ represents the ﬁrst order moment, $\sigma(\cdot)$ is the std used to
+
+normalize the scale of features and $\|\cdot\|_{2}$epresents the 2-norm.
+
 ## Usage
 Environment: python3.6
 ```
@@ -26,7 +36,11 @@ step2: set config.yaml
 
 step3: `./splitDataset.sh`
 
-## Parameters
+## Parameter
+
+In config.yaml file: we will create non-iid dataset based on the number of nodes;
+
+We will set  node_num  parameter which represents the number of dataset we want to generate. For example, we want 500 dataset with 500nodes. We will set node_num: 500.
 
 ```
 dataset_mode: randomly or by category;
