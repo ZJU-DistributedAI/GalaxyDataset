@@ -5,27 +5,28 @@
 #  splitByLabel: 1. just 2. add other dataset, no error 3. add error, no other dataset 4. add both
 
 # dataset
-dataset_mode: CIFAR10
+#dataset_mode: CIFAR10
+dataset_mode: MNIST
 
 # node num  Number of node (default n=10) one node corresponding to one dataset,
-node_num: 20
+node_num: 4
 
 # small dataset config
-isaverage_dataset_size: true # if average splits dataset
+isaverage_dataset_size: false # if average splits dataset
 # numpy.random.randint(10000, 20000 , 20)
-dataset_size_list: [18268, 16718, 10724, 12262, 17094, 14846, 17888, 14273, 13869,
-                    18087, 19631, 15390, 14346, 12743, 11246, 18375, 15813, 18280,
-                    12300, 12190]
+#dataset_size_list: [18268, 16718, 10724, 12262, 17094, 14846, 17888, 14273, 13869,
+##                    18087, 19631, 15390, 14346, 12743, 11246, 18375, 15813, 18280,
+##                    12300, 12190]
+dataset_size_list: [1822, 1000, 1200, 1300]
 
 # split mode
-split_mode: 1 # dataset split: randomSplit(0), splitByLabels(1)
+split_mode: 0 # dataset split: randomSplit(0), splitByLabels(1)
 
 # each node - label kind , sum must <= 10
 # numpy.random.randint(0, 11, 20)
-node_label_num: [ 4,  3,  2, 10,  9, 10,  7,  2,  4,  8,  5,  3,  8,  5,  7,  2,  8,
-                  4,  5,  5]
+node_label_num: [ 4,  3,  2, 10]
 
-isadd_label: true
+isadd_label: false
 add_label_rate: 0.1
 
 isadd_error: false

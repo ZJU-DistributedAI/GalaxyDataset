@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import argparse
+
 import torch
 
 from torchvision import datasets, transforms
@@ -77,17 +79,40 @@ def load_data(args):
             transforms.Normalize((0.1307,), (0.3081,)),
         ])
         train_loader = torch.utils.data.DataLoader(
-            datasets.MNIST('data', train=True, download=True, transform=transform_train),
+            datasets.MNIST('data/newMNIST', train=True, download=True, transform=transform_train),
             batch_size=args.batch_size,
             shuffle=True,
             num_workers=2
         )
 
         test_loader = torch.utils.data.DataLoader(
-            datasets.MNIST('data', train=False, transform=transform_test),
+            datasets.MNIST('data/newMNIST', train=False, transform=transform_test),
             batch_size=args.batch_size,
             shuffle=True,
             num_workers=2
         )
         
     return train_loader, test_loader
+
+class argsment:
+    # 定义基本属性
+    batch_size = 1,
+    dataset_mode = "MNIST",
+    # constructor
+    def __init__(self, batch, mode):
+        self.batch_size = batch,
+        self.dataset_mode = mode,
+    # method
+    def getBatchSize(self):
+        print(self.batch_size)
+
+# download data
+if __name__ == "__main__":
+
+    parser = argparse.ArgumentParser('parameters')
+    # dataset
+    parser.add_argument('--dataset-mode', type=str, default="MNIST", help="dataset")
+    args = parser.parse_args()
+
+    print(args.dataset_mode)
+    load_data(args)

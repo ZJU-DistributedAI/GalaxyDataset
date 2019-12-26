@@ -43,8 +43,8 @@ def make_dataset():
 
     args = readYaml("./config.yaml", args)
     # valid parameters
-    if args.dataset_mode != "CIFAR10":
-        print("currently only for CIFAR10")
+    if args.dataset_mode != "CIFAR10" and args.dataset_mode != "MNIST":
+        print("currently only for CIFAR10 and MNIST")
         return
     if len(args.dataset_size_list) < args.node_num:
         print("Error: the number of dataset smaller than node num")
@@ -66,6 +66,7 @@ def readYaml(path, args):
     f = open(path)
     config = yaml.load(f)
 
+    args.dataset_mode = config["dataset_mode"]
     args.node_num = int(config["node_num"])
     args.isaverage_dataset_size = config["isaverage_dataset_size"]
     args.dataset_size_list = config["dataset_size_list"]
@@ -84,37 +85,39 @@ def splitDataset(args, train_loader):
     #              ]
     #  randomSplit : 1. no error dataset 2. add error dataset
     #  splitByLabel: 1. just 2. add other dataset, no error 3. add error no other 4. add both
+    parent_path = "./" + args.dataset_mode
     if args.split_mode == 0:  # 1. Randomly split CIFAR10 into n small datasets
         if args.isadd_error == False:
             args.add_error_rate = 0.0
             sub_datasets = randomSplit(args, train_loader)
-            savenpy("./cifar10/randomSplit/", sub_datasets, args)
+            savenpy(parent_path+"/randomSplit/", sub_datasets, args)
         else:
             temp_sub_datasets = randomSplit(args, train_loader)
             sub_datasets = addErrorDataset(args, temp_sub_datasets)
-            savenpy("./cifar10/randomSplitWithError/", sub_datasets, args)
+
+            savenpy(parent_path+"/randomSplitWithError/", sub_datasets, args)
 
     elif args.split_mode == 1:  # 2. Divide CIFAR10 into n small datasets according to dataset labels
         if args.isadd_label == False and args.isadd_error == False:
             args.add_error_rate = 0.0
             args.add_label_rate = 0.0
             sub_datasets = splitByLabels(args, train_loader)
-            savenpy("./cifar10/splitByLabels/", sub_datasets, args)
+            savenpy(parent_path+"/splitByLabels/", sub_datasets, args)
         elif args.isadd_label == True and args.isadd_error == False:
             args.add_error_rate = 0.0
             # 3. Based on the 2nd method, each dataset adds 10% of the data taken from the other datasets
             sub_datasets = splitByLabelsAnddDataset(args, train_loader)
-            savenpy("./cifar10/splitByLabelsAnddDataset/", sub_datasets, args)
+            savenpy(parent_path+"/splitByLabelsAnddDataset/", sub_datasets, args)
         elif args.isadd_label == False and args.isadd_error == True:
             args.add_label_rate = 0.0
             # 5. get dataset, each dataset adds some error label data to form a new dataset
             temp_sub_datasets = splitByLabels(args, train_loader)
             sub_datasets = addErrorDataset(args, temp_sub_datasets)
-            savenpy("./cifar10/splitByLabelsWithErrorDataset/", sub_datasets, args)
+            savenpy(parent_path+"/splitByLabelsWithErrorDataset/", sub_datasets, args)
         else:
             temp_sub_datasets = splitByLabelsAnddDataset(args, train_loader)
             sub_datasets = addErrorDataset(args, temp_sub_datasets)
-            savenpy("./cifar10/splitByLabelsWithNormalAndErrorDataset/", sub_datasets, args)
+            savenpy(parent_path+"/splitByLabelsWithNormalAndErrorDataset/", sub_datasets, args)
 
 
 # 1. Randomly split CIFAR10 into n small datasets
@@ -129,11 +132,12 @@ def randomSplit(args, loader):
         temp_list = []
         node_index = 0
         num = 0
+        print(loader.dataset)
         for step, (imgs, label) in enumerate(loader):
             temp_list.append([imgs[0].numpy(), label[0].numpy()])
 
             num += 1
-            if (num % (dataset_size_list[0])) == 0 and num != 0:
+            if (num % (dataset_size_list[node_index])) == 0 and num != 0:
                 print("finish average spliting %d dataset" % node_index)
                 # TODO(save one small dataset)
                 sub_datasets[node_index] = temp_list
@@ -149,20 +153,42 @@ def randomSplit(args, loader):
         node_index = 0
         temp_step = dataset_size_list[node_index]
         num = 0
-        for step, (imgs, label) in enumerate(loader):
-            num +=1
-            temp_list.append([imgs[0].numpy(), label[0].numpy()])
-            if num == temp_step and num !=0:
-                print("finish spliting %d dataset" % node_index)
-                sub_datasets[node_index] = temp_list
-                node_index = node_index + 1
-                if node_index == node_num:
-                    break
-                temp_step += dataset_size_list[node_index]
-                temp_list = []
-            if step == len(loader.dataset.data) -1:
-                print("finish left spliting %d dataset" % node_index)
-                sub_datasets[node_index] = temp_list
+        if args.dataset_mode == "CIFAR10":
+            for step, (imgs, labels) in enumerate(loader):
+                num +=1
+                # CIFAR10
+                temp_list.append([imgs[0].numpy(), labels[0].numpy()])
+                # temp_list.append([imgs.numpy(), labels.numpy()])
+                if num == temp_step and num !=0:
+                    print("finish spliting %d dataset" % node_index)
+                    sub_datasets[node_index] = temp_list
+                    node_index = node_index + 1
+                    if node_index == node_num:
+                        break
+                    temp_step += dataset_size_list[node_index]
+                    temp_list = []
+                if step == len(loader.dataset.data) -1:
+                    print("finish left spliting %d dataset" % node_index)
+                    sub_datasets[node_index] = temp_list
+        elif args.dataset_mode == "MNIST":
+            step = 0
+            for (i, data) in enumerate(loader):
+                step += 1
+                num +=1
+
+                temp_list.append([data[0].numpy(), data[1].numpy()])
+                # temp_list.append([imgs.numpy(), labels.numpy()])
+                if num == temp_step and num !=0:
+                    print("finish spliting %d dataset" % node_index)
+                    sub_datasets[node_index] = temp_list
+                    node_index = node_index + 1
+                    if node_index == node_num:
+                        break
+                    temp_step += dataset_size_list[node_index]
+                    temp_list = []
+                if i == len(loader.dataset.data) -1:
+                    print("finish left spliting %d dataset" % node_index)
+                    sub_datasets[node_index] = temp_list
 
     return sub_datasets
 
@@ -175,6 +201,7 @@ def splitByLabels(args, train_loader):
     for step, (imgs, label) in enumerate(train_loader):
         num_label = label.data.item()
 
+        #  CIFAR10 Dataset
         # imgs[0].numpy()： <class 'tuple'>: (3, 32, 32)  label[0].numpy() [x] =>
         # temp_datasets [
         #                [[(3, 32, 32) , 0], [(3, 32, 32) , 0], ..],
