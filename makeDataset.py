@@ -120,7 +120,7 @@ def splitDataset(args, train_loader):
             savenpy(parent_path+"/splitByLabelsWithNormalAndErrorDataset/", sub_datasets, args)
 
 
-# 1. Randomly split CIFAR10 into n small datasets
+# 1. Randomly split Dataset into n small datasets
 def randomSplit(args, loader):
     args.add_label_rate = 0.0
     node_num = args.node_num
@@ -156,7 +156,7 @@ def randomSplit(args, loader):
         if args.dataset_mode == "CIFAR10":
             for step, (imgs, labels) in enumerate(loader):
                 num +=1
-                # CIFAR10
+
                 temp_list.append([imgs[0].numpy(), labels[0].numpy()])
                 # temp_list.append([imgs.numpy(), labels.numpy()])
                 if num == temp_step and num !=0:
