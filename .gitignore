@@ -1,4 +1,6 @@
+_site
+.sass-cache
+.jekyll-cache
+.jekyll-metadata
+vendor
 .DS_Store
-__pycache__
-data
-cifar10
