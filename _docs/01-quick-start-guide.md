@@ -8,203 +8,177 @@ redirect_from:
 toc: true
 ---
 
-Minimal Mistakes has been developed as a [Gem-based theme](http://jekyllrb.com/docs/themes/) for easier use, and 100% compatible with GitHub Pages when used as a remote theme.
+# Evaluation metrics and a benchmark
+We  propose a modular evaluation metrics and a benchmark for large-scale federated learning. Firstly, we construct a suite of open-source non-IID dataset by providing three methods including partitioning of datasets randomly, partitioning dataset with digit labels, and redefining datasets’ labels with both main concepts and contexts of datasets, which are grounded inreal-world assumptions. In addition, we design a rigorous evaluation metrics including the number of network nodes, the size of datasets, the number of communication rounds, communication resources, etc. Finally, we provide an open-source benchmark data for large-scale federated learning research.
 
-**If you enjoy this theme, please consider [supporting me](https://www.paypal.me/mmistakes) for developing and maintaining it.**
+## Framework
 
-[![Support via PayPal](https://cdn.rawgit.com/twolfson/paypal-github-button/1.0.0/dist/button.svg)](https://www.paypal.me/mmistakes)
+The Evaluation Metrics and Benchmark Paradigm is: 
 
-## Installing the theme
+<img src="./resources/images/structure2.png" style="zoom:50%;" />
 
-If you're running Jekyll v3.5+ and self-hosting you can quickly install the theme as a Ruby gem.
+## Non-IID Dataset Module
 
-[^structure]: See [**Structure** page]({{ "/docs/structure/" | relative_url }}) for a list of theme files and what they do.
+### Requirements
 
-**ProTip:** Be sure to remove `/docs` and `/test` if you forked Minimal Mistakes. These folders contain documentation and test pages for the theme and you probably don't want them littering up your repo.
-{: .notice--info}
+requirements.txt
 
-**Note:** The theme uses the [jekyll-include-cache](https://github.com/benbalter/jekyll-include-cache) plugin which will need to be installed in your `Gemfile` and added to the `plugins` array of `_config.yml`. Otherwise you'll throw `Unknown tag 'include_cached'` errors at build.
-{: .notice--warning}
-
-### Gem-based method
-
-With Gem-based themes, directories such as the `assets`, `_layouts`, `_includes`, and `_sass` are stored in the theme’s gem, hidden from your immediate view. This allows for easier installation and updating as you don't have to manage any of the theme files. 
-
-To install as a Gem-based theme:
-
-1. Add the following to your `Gemfile`:
-
-   ```ruby
-   gem "minimal-mistakes-jekyll"
-   ```
-
-2. Fetch and update bundled gems by running the following [Bundler](http://bundler.io/) command:
-
-   ```bash
-   bundle
-   ```
-
-3. Set the `theme` in your project's Jekyll `_config.yml` file:
-
-   ```yaml
-   theme: minimal-mistakes-jekyll
-   ```
-
-To update the theme run `bundle update`.
-
-### Remote theme method
-
-Remote themes are similar to Gem-based themes, but do not require `Gemfile` changes or whitelisting making them ideal for sites hosted with GitHub Pages.
-
-To install as a remote theme:
-
-1. Create/replace the contents of your `Gemfile` with the following:
-
-   ```ruby
-   source "https://rubygems.org"
-
-   gem "github-pages", group: :jekyll_plugins
-   ```
-
-2. Add `jekyll-include-cache` to the `plugins` array of your `_config.yml`.
-
-3. Fetch and update bundled gems by running the following [Bundler](http://bundler.io/) command:
-
-   ```bash
-   bundle
-   ```
-
-4. Add `remote_theme: "mmistakes/minimal-mistakes@4.17.2"` to your `_config.yml` file. Remove any other `theme:` or `remote_theme:` entry.
-
-You may also optionally specify a branch, [tag](https://github.com/mmistakes/minimal-mistakes/tags), or commit to use by appending an @ and the Git ref (e.g., `mmistakes/minimal-mistakes@4.9.0` or `mmistakes/minimal-mistakes@bbf3cbc5fd64a3e1885f3f99eb90ba92af84063d`). This is useful when rolling back to older versions of the theme. If you don't specify a Git ref, the latest on `master` will be used.
-
-**Looking for an example?** Fork the [Minimal Mistakes remote theme starter](https://github.com/mmistakes/mm-github-pages-starter) for the quickest method of getting a GitHub Pages hosted site up and running. Replace sample content with your own and configure as needed.
-{: .notice--info}
-
----
-
-**Note:** Your Jekyll site should be viewable immediately at <http://USERNAME.github.io>. If it's not, you can force a rebuild by **Customizing Your Site** (see below for more details).
-{: .notice--warning}
-
-If you're hosting several Jekyll based sites under the same GitHub username you will have to use Project Pages instead of User Pages. Essentially you rename the repo to something other than **USERNAME.github.io** and create a `gh-pages` branch off of `master`. For more details on how to set things up check [GitHub's documentation](https://help.github.com/articles/user-organization-and-project-pages/).
-
-<figure>
-  <img src="{{ '/assets/images/mm-gh-pages.gif' | relative_url }}" alt="creating a new branch on GitHub">
-</figure>
-
-You can also install the theme by copying all of the theme files[^structure] into your project.
-
-To do so fork the [Minimal Mistakes theme](https://github.com/mmistakes/minimal-mistakes/fork), then rename the repo to **USERNAME.github.io** --- replacing **USERNAME** with your GitHub username.
-
-<figure>
-  <img src="{{ '/assets/images/mm-theme-fork-repo.png' | relative_url }}" alt="fork Minimal Mistakes">
-</figure>
-
-**GitHub Pages Alternatives:** Looking to host your site for free and install/update the theme painlessly? [Netlify][netlify-jekyll], [GitLab Pages][gitlab-jekyll], and [Continuous Integration (CI) services][ci-jekyll] have you covered. In most cases all you need to do is connect your repository to them, create a simple configuration file, and install the theme following the [Ruby Gem Method](#ruby-gem-method) above.
-{: .notice--info}
-
-[netlify-jekyll]: https://www.netlify.com/blog/2015/10/28/a-step-by-step-guide-jekyll-3.0-on-netlify/
-[gitlab-jekyll]: https://about.gitlab.com/2016/04/07/gitlab-pages-setup/
-[ci-jekyll]: https://jekyllrb.com/docs/continuous-integration/
-
-### Remove the Unnecessary
-
-If you forked or downloaded the `minimal-mistakes-jekyll` repo you can safely remove the following folders and files:
-
-- `.editorconfig`
-- `.gitattributes`
-- `.github`
-- `/docs`
-- `/test`
-- `CHANGELOG.md`
-- `minimal-mistakes-jekyll.gemspec`
-- `README.md`
-- `screenshot-layouts.png`
-- `screenshot.png`
-
-**Note:** If forking the theme be sure to update `Gemfile` as well. The one found at the root of the project is for building the theme's Ruby gem and is missing dependencies. To properly setup a [`Gemfile`](https://github.com/mmistakes/minimal-mistakes/blob/master/docs/Gemfile) with the theme, consult the "[Install Dependencies](https://mmistakes.github.io/minimal-mistakes/docs/installation/#install-dependencies)" section.
-{: .notice--warning}
-
-## Setup Your Site
-
-Depending on the path you took installing Minimal Mistakes you'll setup things a little differently.
-
-**ProTip:** The source code and content files for this site can be found in the [`/docs` folder](https://github.com/mmistakes/minimal-mistakes/tree/master/docs) if you want to copy or learn from them.
-{: .notice--info}
-
-### Starting Fresh
-
-Starting with an empty folder and `Gemfile` you'll need to copy or re-create this [default `_config.yml`](https://github.com/mmistakes/minimal-mistakes/blob/master/_config.yml) file. For a full explanation of every setting be sure to read the [**Configuration**]({{ "/docs/configuration/" | relative_url }}) section.
-
-From `v4.5.0` onwards, Minimal Mistakes theme-gem comes bundled with the necessary data files and will automatically use them via the [`jekyll-data`](https://github.com/ashmaroli/jekyll-data) plugin. So you no longer need to maintain a copy of these data files at your project directory.
-
-You'll need to create and edit these data files to customize them:
-
-- [`_data/ui-text.yml`](https://github.com/mmistakes/minimal-mistakes/blob/master/_data/ui-text.yml) - UI text [documentation]({{ "/docs/ui-text/" | relative_url }})
-- [`_data/navigation.yml`](https://github.com/mmistakes/minimal-mistakes/blob/master/_data/navigation.yml) - navigation [documentation]({{ "/docs/navigation/" | relative_url }})
-
-### Starting from `jekyll new`
-
-Scaffolding out a site with the `jekyll new` command requires you to modify a few files that it creates.
-
-Edit `_config.yml`. Then:
-
-- Replace `<site root>/index.md` with a modified [Minimal Mistakes `index.html`](https://github.com/mmistakes/minimal-mistakes/blob/master/index.html). Be sure to enable pagination if using the [`home` layout]({{ "/docs/layouts/#home-page" | relative_url }}) by adding the necessary lines to **_config.yml**.
-- Change `layout: post` in `_posts/0000-00-00-welcome-to-jekyll.markdown` to `layout: single`.
-- Remove `about.md`, or at the very least change `layout: page` to `layout: single` and remove references to `icon-github.html` (or [copy to your `_includes`](https://github.com/jekyll/minima/tree/master/_includes) if using it).
-
-### Migrating to Gem Version
-
-If you're migrating a site already using Minimal Mistakes and haven't customized any of the theme files things upgrading will be easier for you.
-
-Start by removing the following folders and any files within them: 
-
-```terminal
-├── _includes
-├── _layouts
-├── _sass
-├── assets
-|  ├── css
-|  ├── fonts
-|  └── js
+```yaml
+matplotlib==3.1.1
+pandas==0.25.0
+pyparsing==2.4.1.1
+pyrsistent==0.15.3
+python-dateutil==2.8.0
+torch==1.2.0
+torchvision==0.4.0
+yaml
 ```
 
-You won't need these anymore as they're bundled with the theme gem --- unless you intend to [override them](http://jekyllrb.com/docs/themes/#overriding-theme-defaults).
+Environment: python3.6
 
-**Note:** When clearing out the `assets` folder be sure to leave any files you've added and need. This includes images, CSS, or JavaScript that aren't already [bundled in the theme](https://github.com/mmistakes/minimal-mistakes/tree/master/assets). 
-{: .notice--warning}
-
-From `v4.5.0` onwards, you don't have to maintain a copy of the default data files viz. `_data/ui-text.yml` and `_data/navigation.yml` either.
-The default files are read-in automatically via the [`jekyll-data`](https://github.com/ashmaroli/jekyll-data) plugin.
-
-If you customized any of these files leave them alone, and only remove the untouched ones. If done correctly your modified versions should [override](http://jekyllrb.com/docs/themes/#overriding-theme-defaults) the versions bundled with the theme and be used by Jekyll instead.
-
-#### Update Gemfile
-
-Replace `gem "github-pages` or `gem "jekyll"` with `gem "jekyll", "~> 3.5"`. You'll need the latest version of Jekyll[^update-jekyll] for Minimal Mistakes to work and load all of the theme's assets properly, this line forces Bundler to do that.
-
-[^update-jekyll]: You could also run `bundle update jekyll` to update Jekyll.
-
-Add the Minimal Mistakes theme gem: 
-
-```ruby
-gem "minimal-mistakes-jekyll"
+```python
+pip3 install -r requirements.txt
 ```
 
-When finished your `Gemfile` should look something like this:
+### Non-IID Formula Definition
 
-```ruby
-source "https://rubygems.org"
+Adding a standard to measure the degree of non independence and distribution of data. Using NI,
 
-gem "jekyll", "~> 3.5"
-gem "minimal-mistakes-jekyll"
+Given a feature extractor $g_{\varphi}(\cdot)$ and a class $C$, the degree of distribution shift is $D_{test}^{C}$   deﬁned as:
+
+$NEI(C)=\left\|\frac{\overline{En\left(X_{\operatorname{train}}^{C}\right)}-\overline{En\left(X_{t e s t}^{C}\right)}}{\sigma\left(En\left(X^{C}\right)\right)}\right\|_{2}$
+
+where$X^{C}=X_{\text {train}}^{C} \cup X_{\text {test}}^{C}, \overline{(\cdot)}$ represents the ﬁrst order moment, $\sigma(\cdot)$ is the std used to
+
+normalize the scale of features and $\|\cdot\|_{2}$epresents the 2-norm.
+
+#### usage
+
+step1: download datasets
+
+step2: run NEI.py with datasets
+
+step3: get results
+
+### Non-IID Dataset Generation
+
+According to number of nodes, we split CIFAR10 dataset. We can customize the config.yaml configuration file. Set the split mode, randomly or by category. Set the number of nodes, the size of the data set for each node, and the number of each node category. 
+In addition, we can also set the same distribution of data sets to increase the error dataset.
+
+<img src="./resources/images/datageneration.png" style="zoom:50%;" />
+
+In this part, we use `downloadData.py 、makeDataset.py and preprocess.py` to generate non-IID datasets. More importantly, we provide a config file config.yaml for setting related parameters about non-IID datasets. We now work on MNIST and CIFAR10 datasets.
+
+#### In config.yaml:
+
+We will create non-IID dataset based on the number of nodes;
+
+In config.yaml file: we will create non-IID dataset based on the number of nodes;
+
+We will set  node_num  parameter which represents the number of dataset we want to generate. For example, we want 500 dataset with 500nodes. We will set node_num: 500.
+
+```
+# dataset
+dataset_mode: MNIST/ CIFAR10
+
+# node num  Number of node (default n=10) one node corresponding to one dataset,
+node_num: 4
+
+# small dataset config
+isaverage_dataset_size: false # if average splits dataset
+# numpy.random.randint(10000, 20000 , 20)
+#dataset_size_list: [18268, 16718, 10724, 12262, 17094, 14846, 17888, 14273, 13869,
+##                    18087, 19631, 15390, 14346, 12743, 11246, 18375, 15813, 18280,
+##                    12300, 12190]
+dataset_size_list: [1822, 1000, 1200, 1300]
+
+# split mode
+split_mode: 0 # dataset split: randomSplit(0), splitByLabels(1)
+
+# each node - label kind , sum must <= 10
+# numpy.random.randint(0, 11, 20)
+node_label_num: [ 4,  3,  2, 10]
+
+isadd_label: false
+add_label_rate: 0.1
+
+isadd_error: false
+add_error_rate: 0.01
 ```
 
-Then run `bundle update` and add `theme: minimal-mistakes-jekyll` to your `_config.yml`.
+We will generate n custom datasets.s
 
-**v4 Breaking Change:** Paths for image headers, overlays, teasers, [galleries]({{ "/docs/helpers/#gallery" | relative_url }}), and [feature rows]({{ "/docs/helpers/#feature-row" | relative_url }}) have changed and now require a full path. Instead of just `image: filename.jpg` you'll need to use the full path eg: `image: /assets/images/filename.jpg`. The preferred location is now `/assets/images/` but can be placed elsewhere or externally hosted. This applies to image references in `_config.yml` and `author.yml` as well.
-{: .notice--danger}
+#### In downloadData.py:
 
----
+We can download differents datasets.
 
-That's it! If all goes well running `bundle exec jekyll serve` should spin-up your site.
+#### In makeDataset.py:
+
+In this part, we provide different methods for partitioning dataset.
+
+1. randomSplit: 
+    1) no error dataset 
+    2) add error dataset
+2. splitByLabel: 
+    1. just split dataset
+    2. add other dataset, no error dataset
+    3. add error dataset, no other dataset 
+    4. add both dataset
+3. redefineLabels
+
+We will generate n custom datasets.
+On cifar10 files, every npy file consists of python's List.
+
+```
+npy file: [[imgs, label], [imgs, label]...., [imgs, label]]
+```
+
+We can see the name of each npy file:
+
+```
+npy file name: split node index mode_dataset size_target label_the ratio of other label_the ratio of error dataset
+```
+
+#### In preprocess.py:
+
+We will use readnpy method to read npy file
+
+```python
+def readnpy(path):
+    # npy file: [[imgs, label], [imgs, label]...., [imgs, label]]
+    # when allow_pickle=True, matrix needs same size
+    np_array = np.load(path, allow_pickle=True)
+    imgs = []
+    label = []
+    for index in range(len(np_array)):
+        imgs.append(np_array[index][0])
+        label.append(np_array[index][1])
+    torch_dataset = Data.TensorDataset(torch.from_numpy(np.array(imgs)), torch.from_numpy(np.array(label)))
+
+    dataloader = Data.DataLoader(
+        torch_dataset,
+        batch_size=64,
+        shuffle=True
+    )
+    print(dataloader)
+    return dataloader
+dataloader = readnpy("./cifar10/splitByLabelsWithNormalAndErrorDataset/SplitByLabels_2222_horseandMore_0.1_0.01.npy")
+```
+
+## Evaluation Metrics
+
+**Data Nodes Number**: In federated learning, it is an unavoidable learning process that multiple nodes participate in learning to get a global model.
+
+**The Communication Rounds**:  There is no doubt that the communication rounds of nodes play an important role in the performance of the model. 
+
+**The Weight of Data Nodes**: We need to recognizes the importance of specifying how the accuracy is weighted across nodes, e.g., whether every node is equally important, or every data node equally important (implying that the more data, the more important the node).
+
+**The Quality of Data Nodes**:  In this part, we research the influence of the same distributed data or the same data proportion in the total data and the wrong data proportion in the total data proportion on the performance of the model. We regard the above properties as the quality of data.
+
+## Benchmark
+
+<img src="./resources/images/1.png" alt="image-20191227023027733" />
+
+![image-20191227023138927](./resources/images/2.png)
+
+![image-20191227023203627](./resources/images/3.png)
