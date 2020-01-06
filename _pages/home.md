@@ -10,7 +10,7 @@ header:
 excerpt: >
   A modular evaluation metrics and a benchmark for large-scale federated learning
 feature_row:
-  - image_path: /assets/images/mm-customizable-feature.png
+  - image_path: /assets/images/structure.png
     alt: "customizable"
     title: "GalaxyDataset"
     excerpt: "A github for dataset url"
@@ -19,14 +19,14 @@ feature_row:
     btn_label: "Learn more"
   - image_path: /assets/images/mm-responsive-feature.png
     alt: "fully responsive"
-    title: "Responsive layouts"
-    excerpt: "Built with HTML5 + CSS3. All layouts are fully responsive with helpers to augment your content."
+    title: "Related Work"
+    excerpt: "Related papers and related work"
     url: "/docs/layouts/"
     btn_class: "btn--primary"
     btn_label: "Learn more"
-  - image_path: /assets/images/mm-free-feature.png
+  - image_path: /assets/images/foo-bar-identity.jpg
     alt: "100% free"
-    title: "100% free"
+    title: "Contact Us"
     excerpt: "Free to use however you want under the MIT License. Clone it, fork it, customize it... whatever!"
     url: "/docs/license/"
     btn_class: "btn--primary"
