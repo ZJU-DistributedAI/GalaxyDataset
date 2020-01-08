@@ -13,9 +13,9 @@ minimal_mistakes_skin    : "default" # "air", "aqua", "contrast", "dark", "dirt"
 locale                   : "en-US"
 title                    : "GalaxyDataset"
 title_separator          : "-"
-subtitle                 : "A Jekyll theme"
-name                     : &name "Michael Rose" # &name is a YAML anchor which can be *referenced later
-description              : &description "A flexible Jekyll theme for your blog or site with a minimalist aesthetic."
+subtitle                 : "A Modular Framework about GalaxyDataset"
+name                     : &name "ZJU" # &name is a YAML anchor which can be *referenced later
+description              : &description "This open-source dataset modular framework is created by Zjuer"
 url                      : https://zju-distributedai.github.io/ # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : "/GalaxyDataset" # the subpath of your site, e.g. "/blog"
 repository               : "zju-distributedai/GalaxyDataset"
@@ -81,9 +81,9 @@ naver_site_verification  :
 
 # Social Sharing
 twitter:
-  username               : &twitter "mmistakes"
+  username               : &twitter "zju"
 facebook:
-  username               : &facebook "michaelrose"
+  username               : &facebook ""
   app_id                 :
   publisher              :
 og_image                 : "/assets/images/site-logo.png" # Open Graph/Twitter default site image
@@ -93,8 +93,8 @@ social:
   type                   : # Person or Organization (defaults to Person)
   name                   : # If the user or organization name differs from the site's name
   links: # An array of links to social media profiles
-    - "https://twitter.com/mmistakes"
-    - "https://www.facebook.com/michaelrose"
+    # - "https://twitter.com/mmistakes"
+    # - "https://www.facebook.com/michaelrose"
 
 # Analytics
 analytics:
@@ -107,22 +107,22 @@ analytics:
 # Site Author
 author:
   name             : *name # *name is a YAML reference pointing to the &anchor earlier
-  avatar           : "/assets/images/michael-rose.jpg"
+  avatar           : "/assets/images/zju.jpg"
   bio              : "Just another *boring*, *tattooed*, *time traveling*, *designer*."
-  location         : "Buffalo, NY"
+  location         : "China, HZ"
   links:
-    - label: "Made Mistakes"
+    - label: "Lifeng Liu"
       icon: "fas fa-fw fa-link"
-      url: "https://mademistakes.com"
+      url: "https://github.com/ZJU-DistributedAI/GalaxyDataset"
     - label: "Twitter"
       icon: "fab fa-fw fa-twitter-square"
-      url: "https://twitter.com/mmistakes"
+      url: "https://github.com/ZJU-DistributedAI/GalaxyDataset"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      url: "https://github.com/mmistakes"
+      url: "https://github.com/ZJU-DistributedAI/GalaxyDataset"
     - label: "Instagram"
       icon: "fab fa-fw fa-instagram"
-      url: "https://instagram.com/mmistakes"
+      url: "https://github.com/ZJU-DistributedAI/GalaxyDataset"
 
 
 # Site Footer
