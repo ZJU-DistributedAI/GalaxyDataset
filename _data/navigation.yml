@@ -22,12 +22,16 @@ foo:
 main:
   - title: "Quick-Start Guide"
     url: /docs/quick-start-guide/
-  - title: "About"
-    url: /about/
-  - title: "Sample Posts"
-    url: /year-archive/
+  - title: "Documentation"
+    url: "/docs/documentation/"
+  - title: "Dataset Collection"
+    url: "/docs/Dataset/"
   - title: "Sample Collections"
     url: /collection-archive/
+  - title: "About Us"
+    url: /about/
+  - title: "History"
+    url: /year-archive/
   - title: "Terms &amp; Privacy Policy"
     url: /terms/
 

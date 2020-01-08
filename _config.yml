@@ -13,8 +13,8 @@ minimal_mistakes_skin    : "default" # "air", "aqua", "contrast", "dark", "dirt"
 locale                   : "en-US"
 title                    : "GalaxyDataset"
 title_separator          : "-"
-subtitle                 : "A Modular Framework about GalaxyDataset"
-name                     : &name "ZJU" # &name is a YAML anchor which can be *referenced later
+subtitle                 : "A GalaxyDataset Framework"
+name                     : &name "ZJU-distributedai" # &name is a YAML anchor which can be *referenced later
 description              : &description "This open-source dataset modular framework is created by Zjuer"
 url                      : https://zju-distributedai.github.io/ # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : "/GalaxyDataset" # the subpath of your site, e.g. "/blog"
@@ -130,13 +130,13 @@ footer:
   links:
     - label: "Twitter"
       icon: "fab fa-fw fa-twitter-square"
-      url: "https://twitter.com/mmistakes"
+      url: "https://github.com/ZJU-DistributedAI"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      url: "https://github.com/mmistakes"
+      url: "https://github.com/ZJU-DistributedAI"
     - label: "Instagram"
       icon: "fab fa-fw fa-instagram"
-      url: "https://instagram.com/mmistakes"
+      url: "https://github.com/ZJU-DistributedAI"
 
 
 # Reading Files
