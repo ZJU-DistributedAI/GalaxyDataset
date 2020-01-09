@@ -6,8 +6,13 @@ excerpt: "The supported datasets shown on this page are supported by the framewo
 
 ## MNIST
 
+In config.yaml file:
+
+setting dataset_mode: MNIST
 
 ## CIFAR10
 
 
-## CIFAR100
+In config.yaml file:
+
+setting dataset_mode: CIFAR10

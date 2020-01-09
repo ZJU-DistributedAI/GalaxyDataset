@@ -13,7 +13,7 @@ We  propose a modular evaluation metrics and a benchmark for large-scale federat
 
 The Evaluation Metrics and Benchmark Paradigm is: 
 
-<img src="./resources/images/structure2.png" style="zoom:50%;" />
+<img src="../assets/images/structure2.png" style="zoom:50%;" />
 
 ## Non-IID Dataset Module
 
@@ -42,13 +42,7 @@ pip3 install -r requirements.txt
 
 Adding a standard to measure the degree of non independence and distribution of data. Using NI,
 
-Given a feature extractor $g_{\varphi}(\cdot)$ and a class $C$, the degree of distribution shift is $D_{test}^{C}$   deﬁned as:
-
-$NEI(C)=\left\|\frac{\overline{En\left(X_{\operatorname{train}}^{C}\right)}-\overline{En\left(X_{t e s t}^{C}\right)}}{\sigma\left(En\left(X^{C}\right)\right)}\right\|_{2}$
-
-where$X^{C}=X_{\text {train}}^{C} \cup X_{\text {test}}^{C}, \overline{(\cdot)}$ represents the ﬁrst order moment, $\sigma(\cdot)$ is the std used to
-
-normalize the scale of features and $\|\cdot\|_{2}$epresents the 2-norm.
+<img src="../assets/images/definition1.png">
 
 #### usage
 
@@ -63,7 +57,7 @@ step3: get results
 According to number of nodes, we split CIFAR10 dataset. We can customize the config.yaml configuration file. Set the split mode, randomly or by category. Set the number of nodes, the size of the data set for each node, and the number of each node category. 
 In addition, we can also set the same distribution of data sets to increase the error dataset.
 
-<img src="./resources/images/datageneration.png" style="zoom:50%;" />
+<img src="../assets/images/datageneration.png" style="zoom:50%;" />
 
 In this part, we use `downloadData.py 、makeDataset.py and preprocess.py` to generate non-IID datasets. More importantly, we provide a config file config.yaml for setting related parameters about non-IID datasets. We now work on MNIST and CIFAR10 datasets.
 
@@ -104,11 +98,11 @@ isadd_error: false
 add_error_rate: 0.01
 ```
 
-We will generate n custom datasets.s
+We will generate n custom datasets.
 
 #### In downloadData.py:
 
-We can download differents datasets.
+We can download differents datasets such as MNIST, CIFAR10.
 
 #### In makeDataset.py:
 
@@ -160,7 +154,7 @@ def readnpy(path):
     )
     print(dataloader)
     return dataloader
-dataloader = readnpy("./cifar10/splitByLabelsWithNormalAndErrorDataset/SplitByLabels_2222_horseandMore_0.1_0.01.npy")
+dataloader = readnpy("./xxxx/splitByLabelsWithNormalAndErrorDataset/SplitByLabels_2222_horseandMore_0.1_0.01.npy")
 ```
 
 ## Evaluation Metrics
@@ -175,8 +169,4 @@ dataloader = readnpy("./cifar10/splitByLabelsWithNormalAndErrorDataset/SplitByLa
 
 ## Benchmark
 
-<img src="./resources/images/1.png" alt="image-20191227023027733" />
-
-![image-20191227023138927](./resources/images/2.png)
-
-![image-20191227023203627](./resources/images/3.png)
+<img src="../assets/images/benchmark.png" alt="image-20191227023027733" />

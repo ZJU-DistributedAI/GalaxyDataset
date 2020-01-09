@@ -39,15 +39,13 @@ pip3 install -r requirements.txt
 ### For NEI values
 step1: Download datasets
 
-    ```
     python3 downloadData.py 
-    ```
+    
 
 step2: run NEI.py with datasets
 
-    ```
     python3 NEI.py 
-    ```
+
 
 step3: get results about NEI values
 
