@@ -21,14 +21,14 @@ feature_row:
     alt: "fully responsive"
     title: "White Papers"
     excerpt: "Related papers and related work"
-    url: "/docs/layouts/"
+    url: "https://github.com/ZJU-DistributedAI/GalaxyDataset"
     btn_class: "btn--primary"
     btn_label: "Learn more"
   - image_path: /assets/images/foo-bar-identity.jpg
     alt: "100% free"
     title: "Contact Us"
     excerpt: "Free to use however you want under the MIT License. Clone it, fork it, customize it... whatever!"
-    url: "/docs/license/"
+    url: "/about/"
     btn_class: "btn--primary"
     btn_label: "Learn more"      
 ---
