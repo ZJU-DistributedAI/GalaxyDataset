@@ -1,12 +1,10 @@
 ---
-title: "Quick-Start Guide"
-permalink: /docs/quick-start-guide/
-excerpt: "How to quickly install and setup galaxy dataset framework."
-last_modified_at: 2019-08-20T21:36:11-04:00
-redirect_from:
-  - /theme-setup/
-toc: true
+permalink: "/docs/documentation/"
+title: "Documentation"
+excerpt: "Minimal Mistakes is a flexible two-column Jekyll theme."
+
 ---
+
 
 # Evaluation metrics and a benchmark
 We  propose a modular evaluation metrics and a benchmark for large-scale federated learning. Firstly, we construct a suite of open-source non-IID dataset by providing three methods including partitioning of datasets randomly, partitioning dataset with digit labels, and redefining datasets’ labels with both main concepts and contexts of datasets, which are grounded inreal-world assumptions. In addition, we design a rigorous evaluation metrics including the number of network nodes, the size of datasets, the number of communication rounds, communication resources, etc. Finally, we provide an open-source benchmark data for large-scale federated learning research.

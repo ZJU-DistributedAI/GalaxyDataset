@@ -13,13 +13,13 @@ feature_row:
   - image_path: /assets/images/structure.png
     alt: "customizable"
     title: "GalaxyDataset"
-    excerpt: "A github for dataset url"
-    url: "/docs/configuration/"
+    excerpt: "A detail Documentation for Galaxy Dataset Framework. Welcome to commit issues to us."
+    url: "/docs/documentation/"
     btn_class: "btn--primary"
     btn_label: "Learn more"
   - image_path: /assets/images/mm-responsive-feature.png
     alt: "fully responsive"
-    title: "Related Work"
+    title: "White Papers"
     excerpt: "Related papers and related work"
     url: "/docs/layouts/"
     btn_class: "btn--primary"
