@@ -26,14 +26,15 @@ main:
     url: "/docs/documentation/"
   - title: "Dataset Collection"
     url: "/docs/Dataset/"
-  - title: "Sample Collections"
-    url: /collection-archive/
   - title: "About Us"
     url: /about/
+  - title: "Sample Collections"
+    url: /collection-archive/
+
   - title: "History"
     url: /year-archive/
-  - title: "Terms &amp; Privacy Policy"
-    url: /terms/
+  # - title: "Terms &amp; Privacy Policy"
+  #   url: /terms/
 
 
 # documentation links
