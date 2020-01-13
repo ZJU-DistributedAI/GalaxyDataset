@@ -80,8 +80,8 @@ yandex_site_verification :
 naver_site_verification  :
 
 # Social Sharing
-twitter:
-  username               : &twitter "zju"
+# twitter:
+#   username               : &twitter "zju"
 facebook:
   username               : &facebook ""
   app_id                 :
@@ -114,29 +114,29 @@ author:
     - label: "Lifeng Liu"
       icon: "fas fa-fw fa-link"
       url: "https://github.com/ZJU-DistributedAI/GalaxyDataset"
-    - label: "Twitter"
-      icon: "fab fa-fw fa-twitter-square"
-      url: "https://github.com/ZJU-DistributedAI/GalaxyDataset"
+    # - label: "Twitter"
+    #   icon: "fab fa-fw fa-twitter-square"
+    #   url: "https://github.com/ZJU-DistributedAI/GalaxyDataset"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/ZJU-DistributedAI/GalaxyDataset"
-    - label: "Instagram"
-      icon: "fab fa-fw fa-instagram"
-      url: "https://github.com/ZJU-DistributedAI/GalaxyDataset"
+    # - label: "Instagram"
+    #   icon: "fab fa-fw fa-instagram"
+    #   url: "https://github.com/ZJU-DistributedAI/GalaxyDataset"
 
 
 # Site Footer
 footer:
   links:
-    - label: "Twitter"
-      icon: "fab fa-fw fa-twitter-square"
-      url: "https://github.com/ZJU-DistributedAI"
+    # - label: "Twitter"
+    #   icon: "fab fa-fw fa-twitter-square"
+    #   url: "https://github.com/ZJU-DistributedAI"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/ZJU-DistributedAI"
-    - label: "Instagram"
-      icon: "fab fa-fw fa-instagram"
-      url: "https://github.com/ZJU-DistributedAI"
+    # - label: "Instagram"
+    #   icon: "fab fa-fw fa-instagram"
+    #   url: "https://github.com/ZJU-DistributedAI"
 
 
 # Reading Files

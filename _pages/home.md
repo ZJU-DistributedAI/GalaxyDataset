@@ -3,7 +3,7 @@ layout: splash
 permalink: /
 header:
   overlay_color: "#5e616c"
-  overlay_image: /assets/images/mm-home-page-feature.jpg
+  overlay_image: /assets/images/home.jpg
   actions:
     - label: "<i class='fas fa-download'></i> Install now"
       url: "/docs/quick-start-guide/"
@@ -17,13 +17,20 @@ feature_row:
     url: "/docs/documentation/"
     btn_class: "btn--primary"
     btn_label: "Learn more"
-  - image_path: /assets/images/mm-responsive-feature.png
+  - image_path: /assets/images/code.jpg
     alt: "fully responsive"
     title: "White Papers"
     excerpt: "Related papers and related work"
     url: "https://github.com/ZJU-DistributedAI/GalaxyDataset"
     btn_class: "btn--primary"
     btn_label: "Learn more"
+  - image_path: /assets/images/digital.jpg
+    alt: "100% free"
+    title: "Galaxy Learning"
+    excerpt: "Federated learning framework based on Pytorch"
+    url: "https://zju-distributedai.github.io/GalaxyLearning/"
+    btn_class: "btn--primary"
+    btn_label: "Learn more" 
   - image_path: /assets/images/foo-bar-identity.jpg
     alt: "100% free"
     title: "Contact Us"
