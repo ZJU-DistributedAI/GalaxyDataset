@@ -1,0 +1,29 @@
+# An official PyTorch implementation for a Non dataset setting in a modular evaluation metrics and a benchmark for large-scale federated learning
+
+# dataset-shift describes all dataset offsets
+# 1. feature distrubition skew  协作量偏移 特征分布转移; 不同人关于写的数据集等；label分布一致，具体文字的字体粗细等不一致 
+# 2. label feature skew 先验概率偏移，即样本不充分； 数据偏移量；输入不同数据，得到相同的y
+# 3. Same label，different features  同一个标签y对于不同的客户可能具有非常不同的特征，例如，由于文化差异、天气影响、生活水平等。
+# 4. Same features，different labels  由于个人偏好，一个训练数据项中的相同特征向量可以有不同的标签。 如不同场景下的语句情感 不同；
+# 5. Quantity skew or unbalance 不同的客户可能持有大量不同的数据：
+dataset-shift: [1, 2, 3, 4, 5]
+
+# 1. feature distrubition skew; 
+# noisy-mode: Guass -1; 
+# 2 - 椒盐噪声(salt-and-pepper noise)是指两种噪声，一种是盐噪声（salt noise），另一种是胡椒噪声（pepper noise）。盐=白色(0)，椒=黑色(255)。前者是高灰度噪声，后者属于低灰度噪声。一般两种噪声同时出现，呈现在图像上就是黑白杂点。
+is-noisy: false
+noisy-mode: 1
+noisy-rate: 0.1
+
+# 2. label feature skew
+use-config: true
+
+# 3. Same label，different features
+is-GAN: false 
+
+# 4. Same features，different labels
+differetn-labels: false
+
+# 5. Quantity skew or unbalance
+is-unbalance: false
+client-quantity: []
