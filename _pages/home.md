@@ -10,7 +10,7 @@ header:
 excerpt: >
   A modular evaluation metrics and a benchmark for large-scale federated learning
 feature_row:
-  - image_path: /assets/images/structure.png
+  - image_path: /assets/images/network.jpg
     alt: "customizable"
     title: "GalaxyDataset"
     excerpt: "A detail Documentation for Galaxy Dataset Framework. Welcome to commit issues to us."
