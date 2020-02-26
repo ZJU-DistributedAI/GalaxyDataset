@@ -62,6 +62,9 @@ python3 makeDataset.py
 python3 preprocess.py
 ```
 
+The result is:
+
+<img src="{{ site.baseurl }}/assets/images/getstarted.png">
 
 ### Setting config.yaml:
 
