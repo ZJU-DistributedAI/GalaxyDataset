@@ -8,8 +8,8 @@ redirect_from:
 toc: true
 ---
 
-# Evaluation metrics and a benchmark
-We  propose a modular evaluation metrics and a benchmark for large-scale federated learning. Firstly, we construct a suite of open-source non-IID dataset by providing three methods including partitioning of datasets randomly, partitioning dataset with digit labels, and redefining datasets’ labels with both main concepts and contexts of datasets, which are grounded inreal-world assumptions. In addition, we design a rigorous evaluation metrics including the number of network nodes, the size of datasets, the number of communication rounds, communication resources, etc. Finally, we provide an open-source benchmark data for large-scale federated learning research.
+# Daidataset and Evaluation framework
+Federated learning is proposed as a machine learning setting to enable distributed edge devices, such as mobile phones, to collaboratively learn a shared prediction model while keeping all the training data on device, which can not only take full advantage of data distributed across millions of nodes to train a good model but also protect data privacy. However, learning in scenario above poses new challenges. In fact, data across a massive number of unreliable devices is likely to be non-IID (identically and independently distributed), which may make the performance of models trained by federated learning unstable. In this paper, we introduce a framework designed for large-scale federated learning which consists of approaches to generating dataset and modular evaluation framework. Firstly, we construct a suite of open-source non-IID datasets by providing three respects including covariate shift, prior probability shift, and concept shift, which are grounded in real-world assumptions. In addition, we design several rigorous evaluation metrics including the number of network nodes, the size of datasets, the number of communication rounds and communication resources etc. Finally, we present an open-source benchmark for large-scale federated learning research.
 
 ## Installation
 
@@ -25,7 +25,6 @@ pyrsistent==0.15.3
 python-dateutil==2.8.0
 torch==1.2.0
 torchvision==0.4.0
-yaml
 ```
 
 Environment: python3.6
@@ -36,31 +35,27 @@ pip3 install -r requirements.txt
 
 ## Usage 
 
-### For NEI values
-step1: Download datasets
-
-    python3 downloadData.py 
-    
-
-step2: run NEI.py with datasets
-
-    python3 NEI.py 
-
-
-step3: get results about NEI values
+> In our framework, we use the config.yaml as control module. After install the environment, we can download the origin classical dataset, edit the config module, partition the dataset once decided. Finally, we can use the result.
 
 ### For Non-IID Dataset Generation
-
 
 In this part, we use `downloadData.py 、makeDataset.py and preprocess.py` to generate non-IID datasets. More importantly, we provide a config file config.yaml for setting related parameters about non-IID datasets. We now work on MNIST and CIFAR10 datasets.
 
 ```
 python3 downloadData.py
+```
+<img src="{{ site.baseurl }}/assets/images/downloadData.png">
 
+
+```
 python3 makeDataset.py 
+```
+<img src="{{ site.baseurl }}/assets/images/makeDataset.png">
 
+```
 python3 preprocess.py
 ```
+<img src="{{ site.baseurl }}/assets/images/preprocess.png">
 
 The result is:
 
@@ -155,3 +150,17 @@ def readnpy(path):
     return dataloader
 dataloader = readnpy("./XXXX/splitByLabelsWithNormalAndErrorDataset/SplitByLabels_2222_horseandMore_0.1_0.01.npy")
 ```
+
+
+### For NEI values
+step1: Download datasets
+
+    python3 downloadData.py 
+    
+
+step2: run NEI.py with datasets
+
+    python3 NEI.py 
+
+
+step3: get results about NEI values
