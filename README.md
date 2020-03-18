@@ -1,5 +1,5 @@
-# Evaluation metrics and a benchmark
-We  propose a modular evaluation metrics and a benchmark for large-scale federated learning. Firstly, we construct a suite of open-source non-IID dataset by providing three methods including partitioning of datasets randomly, partitioning dataset with digit labels, and redefining datasets’ labels with both main concepts and contexts of datasets, which are grounded inreal-world assumptions. In addition, we design a rigorous evaluation metrics including the number of network nodes, the size of datasets, the number of communication rounds, communication resources, etc. Finally, we provide an open-source benchmark data for large-scale federated learning research.
+# Daidataset and Evaluation framework
+Federated learning is proposed as a machine learning setting to enable distributed edge devices, such as mobile phones, to collaboratively learn a shared prediction model while keeping all the training data on device, which can not only take full advantage of data distributed across millions of nodes to train a good model but also protect data privacy. However, learning in scenario above poses new challenges. In fact, data across a massive number of unreliable devices is likely to be non-IID (identically and independently distributed), which may make the performance of models trained by federated learning unstable. In this paper, we introduce a framework designed for large-scale federated learning which consists of approaches to generating dataset and modular evaluation framework. Firstly, we construct a suite of open-source non-IID datasets by providing three respects including covariate shift, prior probability shift, and concept shift, which are grounded in real-world assumptions. In addition, we design several rigorous evaluation metrics including the number of network nodes, the size of datasets, the number of communication rounds and communication resources etc. Finally, we present an open-source benchmark for large-scale federated learning research.
 
 ## Framework
 
@@ -34,21 +34,9 @@ pip3 install -r requirements.txt
 
 Adding a standard to measure the degree of non independence and distribution of data. Using NI,
 
-Given a feature extractor $g_{\varphi}(\cdot)$ and a class $C$, the degree of distribution shift is $D_{test}^{C}$   deﬁned as:
-
-$NEI(C)=\left\|\frac{\overline{En\left(X_{\operatorname{train}}^{C}\right)}-\overline{En\left(X_{t e s t}^{C}\right)}}{\sigma\left(En\left(X^{C}\right)\right)}\right\|_{2}$
-
-where$X^{C}=X_{\text {train}}^{C} \cup X_{\text {test}}^{C}, \overline{(\cdot)}$ represents the ﬁrst order moment, $\sigma(\cdot)$ is the std used to
-
-normalize the scale of features and $\|\cdot\|_{2}$epresents the 2-norm.
+<img src="./resources/images/equation.png" style="zoom:50%;" />
 
 #### usage
-
-step1: download datasets
-
-step2: run NEI.py with datasets
-
-step3: get results
 
 ### Non-IID Dataset Generation
 
@@ -69,7 +57,8 @@ We will set  node_num  parameter which represents the number of dataset we want 
 
 ```
 # dataset
-dataset_mode: MNIST/ CIFAR10
+#dataset_mode: CIFAR10
+dataset_mode: MNIST
 
 # node num  Number of node (default n=10) one node corresponding to one dataset,
 node_num: 4
@@ -154,6 +143,13 @@ def readnpy(path):
     return dataloader
 dataloader = readnpy("./cifar10/splitByLabelsWithNormalAndErrorDataset/SplitByLabels_2222_horseandMore_0.1_0.01.npy")
 ```
+
+### NEI Usage
+step1: download datasets
+
+step2: run NEI.py with datasets
+
+step3: get results
 
 ## Evaluation Metrics
 
