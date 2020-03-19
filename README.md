@@ -43,7 +43,8 @@ Adding a standard to measure the degree of non independence and distribution of 
 According to number of nodes, we split CIFAR10 dataset. We can customize the config.yaml configuration file. Set the split mode, randomly or by category. Set the number of nodes, the size of the data set for each node, and the number of each node category. 
 In addition, we can also set the same distribution of data sets to increase the error dataset.
 
-<img src="./resources/images/datageneration.png" style="zoom:50%;" />
+
+![image-20191227023203627](./resources/images/datageneration.png)
 
 In this part, we use `downloadData.py 、makeDataset.py and preprocess.py` to generate non-IID datasets. More importantly, we provide a config file config.yaml for setting related parameters about non-IID datasets. We now work on MNIST and CIFAR10 datasets.
 
