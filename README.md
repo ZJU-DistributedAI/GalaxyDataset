@@ -5,7 +5,7 @@ Federated learning is proposed as a machine learning setting to enable distribut
 
 The Evaluation Metrics and Benchmark Paradigm is: 
 
-<img src="./resources/images/structure2.png" style="zoom:50%;" />
+![](./resources/images/structure2.png)
 
 ## Non-IID Dataset Module
 
@@ -34,7 +34,7 @@ pip3 install -r requirements.txt
 
 Adding a standard to measure the degree of non independence and distribution of data. Using NI,
 
-<img src="./resources/images/equation.png" style="zoom:50%;" />
+![image-20191227023203627](./resources/images/equation.png)
 
 #### usage
 
