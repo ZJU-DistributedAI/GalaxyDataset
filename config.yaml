@@ -5,8 +5,8 @@
 #  splitByLabel: 1. just 2. add other dataset, no error 3. add error, no other dataset 4. add both
 
 # dataset
-#dataset_mode: CIFAR10
-dataset_mode: MNIST
+dataset_mode: CIFAR10
+#dataset_mode: MNIST
 
 # node num  Number of node (default n=10) one node corresponding to one dataset,
 node_num: 4
@@ -19,8 +19,8 @@ isaverage_dataset_size: false # if average splits dataset
 ##                    12300, 12190]
 dataset_size_list: [1822, 1000, 1200, 1300]
 
-# split mode
-split_mode: 0 # dataset split: randomSplit(0), splitByLabels(1)
+# split mode dataset split: randomSplit(0), splitByLabels(1) 3-imageProcess
+split_mode: 0
 
 # each node - label kind , sum must <= 10
 # numpy.random.randint(0, 11, 20)
@@ -31,3 +31,35 @@ add_label_rate: 0.1
 
 isadd_error: false
 add_error_rate: 0.01
+
+# ---- split_mode: 3 -----
+#
+RandomResizedCrop: [0.2, 1.]
+#CenterCrop: 0
+# 水平翻转
+#RandomHorizontalFlip: 0
+#(degrees, resample=False, expand=False, center=None)
+# degress- 若为单个数，如 30，则表示在（-30， +30）之间随机旋转；若为 sequence，如(30， 60)，则表示在 30-60 度之间随机旋转。
+  #resample- 重采样方法选择，可选NEAREST, BILINEAR, BICUBIC，默认为NEAREST
+  #expand- True:填满输出图片，False:不填充。
+  #center- 可选为中心旋转还是左上角旋转。默认中心旋转
+  #————————————————
+#RandomRotation: 30
+
+# 填充
+# padding, fill=0, padding_mode='constant'
+#padding-，此参数是设置填充多少个 pixel。
+  #fill- (int or tuple) 填充值
+  #padding_mode- 填充模式，这里ᨀ供了 4 种填充模式， 1.constant 常量。 2.edge 边缘值。 3.reflect 镜像 4. symmetric 对称
+  #————————————————
+#Pad: 10*10
+
+# Gaussi sigma
+GaussianBlur: [.1, 2.]
+RandomGrayscale: 0.2
+
+# None, 3-RGB  4-RGBA
+#ToPILImage: 3
+
+Normalize_mean: [0.4914, 0.4822, 0.4465]
+Normalize_std: [0.2023, 0.1994, 0.2010]

@@ -39,6 +39,22 @@ def make_dataset():
     parser.add_argument('--isuse-yaml', type= bool, default= True,
                         help='isuse-yaml = True means using yaml file, false means using command line')
 
+    parser.add_argument('--RandomResizedCrop', type=list, default=[0.2, 1.],
+                        help='RandomResizedCrop')
+    parser.add_argument('--GaussianBlur', type=list, default=[0.1, .2],
+                        help='GaussianBlur')
+    parser.add_argument('--RandomGrayscale', type=float, default=0.2,
+                        help='GaussianBlur')
+    parser.add_argument('--Normalize-mean', type=list, default=[0.4914, 0.4822, 0.4465],
+                        help='Normalize-mean')
+    parser.add_argument('--Normalize-std', type=list, default=[0.2023, 0.1994, 0.2010],
+                        help='Normalize-std')
+    # args.RandomResizedCrop = config["RandomResizedCrop"]
+    # args.GaussianBlur = config["GaussianBlur"]
+    # args.RandomGrayscale = config["RandomGrayscale"]
+    # args.Normalize_mean = config["Normalize_mean"]
+    # args.Normalize_std = config["Normalize_std"]
+
     args = parser.parse_args()
 
     args = readYaml("./config.yaml", args)
@@ -53,6 +69,7 @@ def make_dataset():
         print("Error: nodes num is not equal to the length of dataset_size_list or node_label_num ")
         return
 
+    
     train_loader, test_loader = downloadData.load_data(args)
 
     splitDataset(args, train_loader)
@@ -76,6 +93,14 @@ def readYaml(path, args):
     args.add_label_rate = float(config["add_label_rate"])
     args.isadd_error = config["isadd_error"]
     args.add_error_rate = float(config["add_error_rate"])
+
+    args.RandomResizedCrop = config["RandomResizedCrop"]
+    args.GaussianBlur = config["GaussianBlur"]
+    args.RandomGrayscale = config["RandomGrayscale"]
+    args.Normalize_mean = config["Normalize_mean"]
+    args.Normalize_std = config["Normalize_std"]
+
+
     return args
 
 def splitDataset(args, train_loader):
