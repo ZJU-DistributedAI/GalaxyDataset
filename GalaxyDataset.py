@@ -7,6 +7,7 @@ import os
 import random
 import yaml
 import downloadData
+import fdata
 import preprocess
 
 # 1. download dataset  2. split dataset
@@ -69,7 +70,15 @@ def make_dataset():
         print("Error: nodes num is not equal to the length of dataset_size_list or node_label_num ")
         return
 
-    
+
+    if args.split_mode == 3:
+
+        #file_path,  batch_size , sub_num, dataset_ident = 'CIFAR10C' , download = False, train_transform = cifar_train_transforms(), test_transform = cifar_test_transforms(), use_cuda =True
+        Xloader = fdata.Loader("./data", batch_size = 32, sub_num=1000, dataset_ident = 'CIFAR10C',  download = False, train_transform=fdata.cifar_train_transforms(args), test_transform=fdata.cifar_test_transforms(), use_cuda=True)
+
+        return
+
+
     train_loader, test_loader = downloadData.load_data(args)
 
     splitDataset(args, train_loader)

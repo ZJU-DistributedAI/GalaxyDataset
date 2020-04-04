@@ -6,7 +6,6 @@ import random
 from PIL import ImageFilter
 from PIL import Image
 
-
 class GaussianBlur(object):
     def __init__(self, sigma=[.1, 2.]):
         self.sigma = sigma
@@ -16,17 +15,29 @@ class GaussianBlur(object):
         x = x.filter(ImageFilter.GaussianBlur(radius=sigma))
         return x
 
-
-def cifar_train_transforms():
+# Xargs.RandomResizedCrop
+def cifar_train_transforms(Xargs):
     all_transforms = transforms.Compose([
-        transforms.RandomResizedCrop(32, scale=(0.2, 1.)),
+        transforms.RandomResizedCrop(32, scale=(Xargs.RandomResizedCrop[0], Xargs.RandomResizedCrop[1])),
         transforms.RandomHorizontalFlip(),
-        transforms.RandomApply([GaussianBlur([.1, 2.])], p=0.5),
-        transforms.RandomGrayscale(p=0.2),
+        transforms.RandomApply([GaussianBlur(Xargs.GaussianBlur)], p=0.5),
+        transforms.RandomGrayscale(Xargs.RandomGrayscale),
         transforms.ToTensor(),
-        transforms.Normalize([0.4914, 0.4822, 0.4465], [0.2023, 0.1994, 0.2010])
+        transforms.Normalize(Xargs.Normalize_mean, Xargs.Normalize_std)
     ])
     return all_transforms
+
+
+# def cifar_train_transforms():
+#     all_transforms = transforms.Compose([
+#         transforms.RandomResizedCrop(32, scale=(0.2, 1.)),
+#         transforms.RandomHorizontalFlip(),
+#         transforms.RandomApply([GaussianBlur([.1, 2.])], p=0.5),
+#         transforms.RandomGrayscale(p=0.2),
+#         transforms.ToTensor(),
+#         transforms.Normalize([0.4914, 0.4822, 0.4465], [0.2023, 0.1994, 0.2010])
+#     ])
+#     return all_transforms
 
 
 def cifar_test_transforms():
@@ -63,8 +74,8 @@ num_class = {
             'CIFAR10': 10
         }
 class Loader(object):
-    def __init__(self, file_path,  batch_size , sub_num, dataset_ident = 'CIFAR10C' , download = False, train_transform = cifar_train_transforms(), test_transform = cifar_test_transforms(), use_cuda =True):
-        
+    def __init__(self, file_path,  batch_size , sub_num, train_transform, test_transform, dataset_ident = 'CIFAR10C' , download = False,  use_cuda =True):
+
         train_dataset,test_dataset = self.get_dataset_train(loader_map[dataset_ident], file_path, download,
                                                        train_transform, test_transform)
         subsize = int(50000 / (sub_num +1 ))

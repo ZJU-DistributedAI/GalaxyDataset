@@ -20,7 +20,7 @@ isaverage_dataset_size: false # if average splits dataset
 dataset_size_list: [1822, 1000, 1200, 1300]
 
 # split mode dataset split: randomSplit(0), splitByLabels(1) 3-imageProcess
-split_mode: 0
+split_mode: 3
 
 # each node - label kind , sum must <= 10
 # numpy.random.randint(0, 11, 20)
@@ -58,6 +58,7 @@ RandomResizedCrop: [0.2, 1.]
 GaussianBlur: [.1, 2.]
 RandomGrayscale: 0.2
 
+sub_num: 1000
 # None, 3-RGB  4-RGBA
 #ToPILImage: 3
 
