@@ -74,7 +74,7 @@ def make_dataset():
     if args.split_mode == 3:
 
         #file_path,  batch_size , sub_num, dataset_ident = 'CIFAR10C' , download = False, train_transform = cifar_train_transforms(), test_transform = cifar_test_transforms(), use_cuda =True
-        Xloader = fdata.Loader("./data", batch_size = 32, sub_num=1000, dataset_ident = 'CIFAR10C',  download = False, train_transform=fdata.cifar_train_transforms(args), test_transform=fdata.cifar_test_transforms(), use_cuda=True)
+        Xloader = fdata.Loader("./data", batch_size = 32, sub_num=args.sub_num, dataset_ident = 'CIFAR10C',  download = False, train_transform=fdata.cifar_train_transforms(args), test_transform=fdata.cifar_test_transforms(), use_cuda=True)
 
         return
 
@@ -108,7 +108,7 @@ def readYaml(path, args):
     args.RandomGrayscale = config["RandomGrayscale"]
     args.Normalize_mean = config["Normalize_mean"]
     args.Normalize_std = config["Normalize_std"]
-
+    args.sub_num = config["sub_num"]
 
     return args
 
