@@ -9,6 +9,7 @@ import yaml
 import downloadData
 import fdata
 import preprocess
+import mnist_bias
 
 # 1. download dataset  2. split dataset
 def make_dataset():
@@ -78,6 +79,9 @@ def make_dataset():
 
         return
 
+    if args.split_mode == 4:
+        mnist_bias.mnist_process(args.datasetpath)
+        return
 
     train_loader, test_loader = downloadData.load_data(args)
 
@@ -93,6 +97,7 @@ def readYaml(path, args):
     config = yaml.load(f)
 
     args.dataset_mode = config["dataset_mode"]
+    args.datasetpath = str(config["datasetpath"])
     args.node_num = int(config["node_num"])
     args.isaverage_dataset_size = config["isaverage_dataset_size"]
     args.dataset_size_list = config["dataset_size_list"]

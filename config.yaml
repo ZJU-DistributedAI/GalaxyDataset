@@ -8,6 +8,9 @@
 dataset_mode: CIFAR10
 #dataset_mode: MNIST
 
+# download dataset path
+datasetpath: ./data/
+
 # node num  Number of node (default n=10) one node corresponding to one dataset,
 node_num: 4
 
@@ -19,7 +22,7 @@ isaverage_dataset_size: false # if average splits dataset
 ##                    12300, 12190]
 dataset_size_list: [1822, 1000, 1200, 1300]
 
-# split mode dataset split: randomSplit(0), splitByLabels(1) 3-imageProcess
+# split mode dataset split: randomSplit(0), splitByLabels(1) 3-imageProcess 4-MNIST Process
 split_mode: 3
 
 # each node - label kind , sum must <= 10
@@ -64,3 +67,5 @@ sub_num: 1000
 
 Normalize_mean: [0.4914, 0.4822, 0.4465]
 Normalize_std: [0.2023, 0.1994, 0.2010]
+
+# ---- split_mode: 4 -----
