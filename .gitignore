@@ -4,3 +4,7 @@ _site
 .jekyll-metadata
 vendor
 .DS_Store
+mnist
+data
+__pycache__
+CIFAR10

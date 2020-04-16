@@ -37,6 +37,13 @@ pip3 install -r requirements.txt
 
 > In our framework, we use the config.yaml as control module. After install the environment, we can download the origin classical dataset, edit the config module, partition the dataset once decided. Finally, we can use the result.
 
+### Module Usage
+
+in conda
+```
+pip install galaxydataset
+```
+
 ### For Non-IID Dataset Generation
 
 In this part, we use `downloadData.py 、makeDataset.py and preprocess.py` to generate non-IID datasets. More importantly, we provide a config file config.yaml for setting related parameters about non-IID datasets. We now work on MNIST and CIFAR10 datasets.
@@ -92,7 +99,7 @@ isadd_error: false
 add_error_rate: 0.01
 ```
 
-We will generate n custom datasets.s
+We will generate n custom datasets.
 
 #### In downloadData.py:
 
