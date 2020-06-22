@@ -1,4 +1,4 @@
-Non-IID Dataset and Evaluation Metrics For Federated Learning
+# Non-IID Dataset and Evaluation Metrics For Federated Learning
 
 Federated learning is proposed as a machine learning setting to enable distributed edge devices (e.g., mobile phones) to collaboratively learn a shared model while keeping all the training data on devices, which can not only take full advantage of data distributed across millions of nodes but also protect data privacy. However, learning in the federated scenario above poses new challenges. One of the most prominent challenges is that the data distribution in different nodes violates the assumption of independent and identically distribution (IID) of data in traditional deep learning. Therefore, the non-independent and identically distributed (Non-IID) dataset becomes a research topic in federated learning. In this paper, we propose a modular benchmarking framework which includes three parts of work: 1) a mathematical equation to measure the distribution of different datasets, 2) a suite of customizable solutions to generate non-IID datasets, 3) a set of evaluation metrics to evaluate the performance of machine learning algorithms. Moreover, a set of practical non-IID benchmarkable datasets will also be released.
 
@@ -35,7 +35,7 @@ pip3 install -r requirements.txt
 
 Adding a standard to measure the degree of non independence and distribution of data. Using NI,
 
-Given a feature extractor ![](https://latex.codecogs.com/svg.latex?g_{\varphi}(\cdot)) and a class $C$, the degree of distribution shift is ![](https://latex.codecogs.com/svg.latex?D_{test}^{C})   deﬁned as:
+Given a feature extractor ![](https://latex.codecogs.com/svg.latex?g_{\varphi}(\cdot)) and a class C, the degree of distribution shift is ![](https://latex.codecogs.com/svg.latex?D_{test}^{C})   deﬁned as:
 
 ![](https://latex.codecogs.com/svg.latex?NEI(C)=\left\|\frac{\overline{En\left(X_{\text{i}}^{C}\right)}-\overline{En\left(X_{\text{j}}^{C}\right)}}{\sigma\left(En\left(X^{C}\right)\right)}\right\|_{2})
 
