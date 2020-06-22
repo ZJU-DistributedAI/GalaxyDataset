@@ -111,8 +111,9 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser('parameters')
     # dataset
-    parser.add_argument('--dataset-mode', type=str, default="MNIST", help="dataset")
+    parser.add_argument('--dataset-mode', type=str, default="CIFAR100", help="dataset")
     args = parser.parse_args()
 
     print(args.dataset_mode)
-    load_data(args)
+    train_loader, test_loader = load_data(args)
+    print(train_loader)

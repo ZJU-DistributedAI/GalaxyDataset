@@ -5,8 +5,9 @@
 #  splitByLabel: 1. just 2. add other dataset, no error 3. add error, no other dataset 4. add both
 
 # dataset
-dataset_mode: CIFAR10
+#dataset_mode: CIFAR10
 #dataset_mode: MNIST
+dataset_mode: CIFAR100
 
 # download dataset path
 datasetpath: ./data/
@@ -69,3 +70,5 @@ Normalize_mean: [0.4914, 0.4822, 0.4465]
 Normalize_std: [0.2023, 0.1994, 0.2010]
 
 # ---- split_mode: 4 -----
+superclass: [aquatic, flowers]
+classes: [[mammals beaver, dolphin], [orchids, poppies]]
