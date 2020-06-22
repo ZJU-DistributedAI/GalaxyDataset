@@ -1,9 +1,9 @@
 # Evaluation metrics and a benchmark
-We  propose a modular evaluation metrics and a benchmark for large-scale federated learning. Firstly, we construct a suite of open-source non-IID dataset by providing three methods including partitioning of datasets randomly, partitioning dataset with digit labels, and redefining datasets’ labels with both main concepts and contexts of datasets, which are grounded inreal-world assumptions. In addition, we design a rigorous evaluation metrics including the number of network nodes, the size of datasets, the number of communication rounds, communication resources, etc. Finally, we provide an open-source benchmark data for large-scale federated learning research.
+Federated learning is proposed as a machine learning setting to enable distributed edge devices (e.g., mobile phones) to collaboratively learn a shared model while keeping all the training data on devices, which can not only take full advantage of data distributed across millions of nodes but also protect data privacy. However, learning in the federated scenario above poses new challenges. One of the most prominent challenges is that the data distribution in different nodes violates the assumption of independent and identically distribution (IID) of data in traditional deep learning. Therefore, the non-independent and identically distributed (Non-IID) dataset becomes a research topic in federated learning. In this paper, we propose a modular benchmarking framework which includes three parts of work: 1) a mathematical equation to measure the distribution of different datasets, 2) a suite of customizable solutions to generate non-IID datasets, 3) a set of evaluation metrics to evaluate the performance of machine learning algorithms. Moreover, a set of practical non-IID benchmarkable datasets will also be released.
 
 ## Framework
 
-The Evaluation Metrics and Benchmark Paradigm is: 
+Non-IID Dataset and Evaluation Metrics Paradigm is: 
 
 <img src="./resources/images/structure2.png" style="zoom:50%;" />
 
@@ -36,13 +36,11 @@ Adding a standard to measure the degree of non independence and distribution of 
 
 Given a feature extractor $g_{\varphi}(\cdot)$ and a class $C$, the degree of distribution shift is $D_{test}^{C}$   deﬁned as:
 
-$NEI(C)=\left\|\frac{\overline{En\left(X_{\operatorname{train}}^{C}\right)}-\overline{En\left(X_{t e s t}^{C}\right)}}{\sigma\left(En\left(X^{C}\right)\right)}\right\|_{2}$
+$NEI(C)=\left\|\frac{\overline{En\left(X_{\text{i}}^{C}\right)}-\overline{En\left(X_{\text{j}}^{C}\right)}}{\sigma\left(En\left(X^{C}\right)\right)}\right\|_{2}$
 
-where$X^{C}=X_{\text {train}}^{C} \cup X_{\text {test}}^{C}, \overline{(\cdot)}$ represents the ﬁrst order moment, $\sigma(\cdot)$ is the std used to
+where $X^{C}=X_{i}^{C} \cup X_{j}^{C}$, $X_{i}^{C}$ represents the dataset and class $C$ in node $i$, $\overline{(\cdot)}$ represents the first order moment, $\sigma(\cdot)$ is the std used to normalize the scale of features and $||\cdot||$ represents the 2-norm.
 
-normalize the scale of features and $\|\cdot\|_{2}$epresents the 2-norm.
-
-#### usage
+#### Usage
 
 step1: download datasets
 
